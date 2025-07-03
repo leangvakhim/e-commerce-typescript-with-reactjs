@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useCart } from '../CartContext';
 import { useEffect, useState } from 'react';
+import Swal from 'sweetalert2';
 
 const CartListProduct = () => {
     const { cart, finalizeCartTotalWithCoupon, calculateCartTotal, decreaseToCart,  addToCart, removeFromCart } = useCart();
@@ -81,7 +82,28 @@ const CartListProduct = () => {
                             </td>
                             <td>${(item.price * item.quantity).toFixed(2)}</td>
                             <td><a
-                              onClick={() => removeFromCart(item.id)}
+                              onClick={() => {
+                                Swal.fire({
+                                  title: 'Are you sure?',
+                                  text: "Do you want to remove this product from the cart?",
+                                  icon: 'warning',
+                                  showCancelButton: true,
+                                  confirmButtonColor: '#d33',
+                                  cancelButtonColor: '#3085d6',
+                                  confirmButtonText: 'Yes, remove it!'
+                                }).then((result) => {
+                                  if (result.isConfirmed) {
+                                    removeFromCart(item.id);
+                                    Swal.fire({
+                                      icon: 'success',
+                                      title: 'Removed!',
+                                      text: 'The product has been removed from your cart.',
+                                      timer: 1500,
+                                      showConfirmButton: false
+                                    });
+                                  }
+                                });
+                              }}
                               className="btn btn-black btn-sm">X</a></td>
                           </tr>
                         ))}
@@ -124,7 +146,12 @@ const CartListProduct = () => {
                           if (coupon === 'VAKHIM123') {
                             setIsCouponApplied(true);
                           } else {
-                            alert('Invalid coupon code');
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Invalid coupon code',
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
                           }
                         }}
                       >

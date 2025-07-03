@@ -1,6 +1,7 @@
 // import React from 'react'
 import { useCart } from '../CartContext';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 const CheckoutForm = () => {
     const { finalTotal } = useCart();
@@ -41,10 +42,27 @@ const CheckoutForm = () => {
 			const resultHtml = response.data;
 
 			if (resultHtml) {
-				alert("While this is the sand-box testing only for aba payment methods. No charging money happen.")
-				return true;
+				const { isConfirmed } = await Swal.fire({
+					icon: 'info',
+					title: 'Sandbox Notice',
+					text: 'This is a sandbox testing environment. No real payment is being processed.',
+					// showCancelButton: true,
+					confirmButtonText: 'OK',
+					// cancelButtonText: 'Cancel'
+				});
+
+				if (isConfirmed) {
+					return true;
+				} else {
+					return false;
+				}
 			} else {
-				alert("Popup blocked. Please allow popups for this site.");
+				await Swal.fire({
+					icon: 'warning',
+					title: 'Popup Blocked',
+					text: 'Please allow popups for this site to complete the payment.',
+					confirmButtonText: 'OK'
+				});
 				return false;
 			}
 

@@ -3,6 +3,7 @@ import Cross from '../../asset/images/cross.svg';
 import axios from 'axios';
 import { API_ENDPOINTS } from '../APIConfig';
 import { useCart } from '../CartContext';
+import Swal from 'sweetalert2';
 
 interface Product {
 	id: number;
@@ -61,7 +62,16 @@ const HomeProduct = () => {
 								<strong className="product-price">{product.price}</strong>
 
 								<span
-									onClick={() => handleAddToCart(product)}
+									onClick={() => {
+										handleAddToCart(product);
+										Swal.fire({
+											icon: 'success',
+											title: 'Added to Cart',
+											text: `Product has been added to your cart.`,
+											showConfirmButton: false,
+											timer: 1500
+										});
+									}}
 									className="icon-cross">
 									<img src={Cross} className="img-fluid"/>
 								</span>
