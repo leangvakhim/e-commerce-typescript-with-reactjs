@@ -28,7 +28,8 @@ const CheckoutForm = () => {
 
 		try {
 			const response = await axios.post(
-				"http://localhost:3001/api/proxy/payment",
+				// "http://localhost:3001/api/proxy/payment",
+				"https://e-commerce-typescript-reactjs-proxy-server-leangvakhim.up.railway.app/api/proxy/payment",
 				data,
 				{
 					headers: {
@@ -38,7 +39,6 @@ const CheckoutForm = () => {
 			);
 
 			const resultHtml = response.data;
-			console.log("resultHtml is; ",resultHtml);
 
 			if (resultHtml) {
 				alert("While this is the sand-box testing only for aba payment methods. No charging money happen.")
