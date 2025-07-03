@@ -79,7 +79,7 @@ const ContactForm = () => {
 
                             <div className="form-group mb-5">
                                 <label className="text-black" htmlFor="message">Message</label>
-                                <textarea name="" className="form-control" id="message" cols="30" rows="5" ></textarea>
+                                <textarea name="" className="form-control" id="message" cols={30} rows={5} ></textarea>
                             </div>
 
                             <button type="submit" className="btn btn-primary-hover-outline">Send Message</button>
