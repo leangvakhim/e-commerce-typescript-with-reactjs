@@ -1,69 +1,47 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+🛒 E-Commerce Website – Built with TypeScript & ReactJS
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Project: Online Shopping Website
+Frontend: ReactJS (JSX, CSS) & TypeScript
+Deployment: View Live Site
+Repository: GitHub - leangvakhim
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+📘 Project Overview
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+This is a fully functional e-commerce website developed using TypeScript and ReactJS with Vite as the build tool. The application simulates a modern online shopping experience by integrating real-time product data from FakeStoreAPI and enabling secure checkout through PayPal.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+⚙️️ Key Features
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+    1. 🛍️ Product listing with dynamic data fetched from FakeStoreAPI
+    2. 🛒 Add-to-cart and cart management functionality
+    3. 💳 PayPal payment gateway integration for real checkout flow
+    4. 💡 Built with TypeScript for type safety and better code maintainability
+    5. ⚡ Fast performance with Vite for optimized bundling and HMR (Hot Module Reloading)
+    6. 📱 Fully responsive design (mobile-first)
+
+🛠️ Technologies Used
+
+
+    - ReactJS with functional components and TSX
+    - Typescript for type safety
+    - CSS for layout and responsive styling
+    - Vercel for deployment
+
+💼 What I Learned
+
+
+    - Structuring a scalable React app using TypeScript interfaces and types
+    - Handling asynchronous data fetching and state management
+    - Managing global state for a cart system
+    - Deploying a production-ready frontend on Vercel
+    - Integrating third-party APIs like PayPal and FakeStoreAPI
+
+💬 Conclusion
+
+
+This project demonstrates my capability to build modern, scalable web applications with real-world integrations. It’s a key step in my growth toward becoming a full-stack developer.
