@@ -30,19 +30,38 @@ const Paypal: React.FC<PaypalProps> = ({ total, onSuccess }) => {
 
     useEffect(() => {
         if (sdkReady && paypalRef.current && paypalRef.current.childElementCount === 0) {
+            // window.paypal.Buttons({
+            //     createOrder: ( actions: any) => {
+            //         return actions.order.create({
+            //             purchase_units: [{
+            //                 amount: { value: total.toFixed(2) }
+            //             }]
+            //         });
+            //     },
+            //     onApprove: async (actions: any) => {
+            //         await actions.order.capture();
+            //         // alert(`Transaction completed by ${details.payer.name.given_name}`);
+            //         if (onSuccess) {
+            //           onSuccess(); // call the callback
+            //         }
+            //     },
+            //     onError: (err: any) => {
+            //         console.error('PayPal error:', err);
+            //     }
+            // }).render(paypalRef.current);
             window.paypal.Buttons({
-                createOrder: ( actions: any) => {
+                createOrder: (_: any, actions: any) => {
                     return actions.order.create({
                         purchase_units: [{
                             amount: { value: total.toFixed(2) }
                         }]
                     });
                 },
-                onApprove: async (actions: any) => {
+                onApprove: async (data: any, actions: any) => {
+                    console.log('Approval data:', data);
                     await actions.order.capture();
-                    // alert(`Transaction completed by ${details.payer.name.given_name}`);
                     if (onSuccess) {
-                      onSuccess(); // call the callback
+                        onSuccess();
                     }
                 },
                 onError: (err: any) => {
