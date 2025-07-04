@@ -28,34 +28,6 @@ const Paypal: React.FC<PaypalProps> = ({ total, onSuccess }) => {
         }
     }, []);
 
-    // useEffect(() => {
-    //     if (sdkReady && paypalRef.current) {
-    //         paypalRef.current.innerHTML = '';
-    //         window.paypal.Buttons({
-    //             createOrder: (data: any, actions: any) => {
-    //                 return actions.order.create({
-    //                     purchase_units: [
-    //                         {
-    //                             amount: {
-    //                                 value: total.toFixed(2),
-    //                             },
-    //                         },
-    //                     ],
-    //                 });
-    //             },
-    //             onApprove: (data: any, actions: any) => {
-    //                 return actions.order.capture().then((details: any) => {
-    //                     alert(`Transaction completed by ${details.payer.name.given_name}`);
-    //                     console.log('Transaction details:', details);
-    //                 });
-    //             },
-    //             onError: (err: any) => {
-    //                 console.error('PayPal error:', err);
-    //             },
-    //         }).render(paypalRef.current);
-    //     }
-    // }, [sdkReady, total]);
-
     useEffect(() => {
         if (sdkReady && paypalRef.current && paypalRef.current.childElementCount === 0) {
             window.paypal.Buttons({
