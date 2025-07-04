@@ -1,77 +1,82 @@
 // import React from 'react'
 import { useCart } from '../CartContext';
-import axios from 'axios';
-import Swal from 'sweetalert2';
+// import axios from 'axios';
+// import Swal from 'sweetalert2';
+import Paypal from '../Paypal';
 
 const CheckoutForm = () => {
     const { finalTotal } = useCart();
 	const total = finalTotal;
-	const reqTime = new Date().toISOString().replace(/[-:T.Z]/g, '').slice(0, 14);
+	// const reqTime = new Date().toISOString().replace(/[-:T.Z]/g, '').slice(0, 14);
 
-	const handleAbaPayment = async (): Promise<boolean> => {
-		const data = new FormData();
-		data.append('req_time', reqTime);
-		data.append("merchant_id", "ec460572");
-		data.append("tran_id", "ORDER_" + Date.now());
-		// data.append("firstname", "Vakhim");
-		// data.append("lastname", "Leang");
-		// data.append("email", "vakhim@example.com");
-		// data.append("phone", "012345678");
-		data.append("amount", total.toFixed(2));
-		data.append("currency", "USD");
-		// data.append("return_url", "https://your-site.com/thank-you");
-		// data.append("cancel_url", "https://your-site.com/cancel");
-		// data.append("items", JSON.stringify([{ name: "Demo Item", qty: 1, price: 1.00 }]));
+	// const handleAbaPayment = async (): Promise<boolean> => {
+	// 	const data = new FormData();
+	// 	data.append('req_time', reqTime);
+	// 	data.append("merchant_id", "ec460572");
+	// 	data.append("tran_id", "ORDER_" + Date.now());
+	// 	// data.append("firstname", "Vakhim");
+	// 	// data.append("lastname", "Leang");
+	// 	// data.append("email", "vakhim@example.com");
+	// 	// data.append("phone", "012345678");
+	// 	data.append("amount", total.toFixed(2));
+	// 	data.append("currency", "USD");
+	// 	// data.append("return_url", "https://your-site.com/thank-you");
+	// 	// data.append("cancel_url", "https://your-site.com/cancel");
+	// 	// data.append("items", JSON.stringify([{ name: "Demo Item", qty: 1, price: 1.00 }]));
 
-		// ⚠️ This should be generated securely in backend
-		// data.append("hash", "DUMMY_HASH_FOR_TEST");
-		data.append('hash', 'DUMMY_HASH_FOR_DEMO');
+	// 	// ⚠️ This should be generated securely in backend
+	// 	// data.append("hash", "DUMMY_HASH_FOR_TEST");
+	// 	data.append('hash', 'DUMMY_HASH_FOR_DEMO');
 
-		try {
-			const response = await axios.post(
-				// "http://localhost:3001/api/proxy/payment",
-				"https://e-commerce-typescript-reactjs-proxy-server-leangvakhim.up.railway.app/api/proxy/payment",
-				data,
-				{
-					headers: {
-						"Content-Type": "multipart/form-data"
-					}
-				}
-			);
+	// 	try {
+	// 		const response = await axios.post(
+	// 			// "http://localhost:3001/api/proxy/payment",
+	// 			"https://e-commerce-typescript-reactjs-proxy-server-leangvakhim.up.railway.app/api/proxy/payment",
+	// 			data,
+	// 			{
+	// 				headers: {
+	// 					"Content-Type": "multipart/form-data"
+	// 				}
+	// 			}
+	// 		);
 
-			const resultHtml = response.data;
+	// 		const resultHtml = response.data;
 
-			if (resultHtml) {
-				const { isConfirmed } = await Swal.fire({
-					icon: 'info',
-					title: 'Sandbox Notice',
-					text: 'This is a sandbox testing environment. No real payment is being processed.',
-					// showCancelButton: true,
-					confirmButtonText: 'OK',
-					// cancelButtonText: 'Cancel'
-				});
+	// 		if (resultHtml) {
+	// 			const { isConfirmed } = await Swal.fire({
+	// 				icon: 'info',
+	// 				title: 'Sandbox Notice',
+	// 				text: 'This is a sandbox testing environment. No real payment is being processed.',
+	// 				// showCancelButton: true,
+	// 				confirmButtonText: 'OK',
+	// 				// cancelButtonText: 'Cancel'
+	// 			});
 
-				if (isConfirmed) {
-					return true;
-				} else {
-					return false;
-				}
-			} else {
-				await Swal.fire({
-					icon: 'warning',
-					title: 'Popup Blocked',
-					text: 'Please allow popups for this site to complete the payment.',
-					confirmButtonText: 'OK'
-				});
-				return false;
-			}
+	// 			if (isConfirmed) {
+	// 				return true;
+	// 			} else {
+	// 				return false;
+	// 			}
+	// 		} else {
+	// 			await Swal.fire({
+	// 				icon: 'warning',
+	// 				title: 'Popup Blocked',
+	// 				text: 'Please allow popups for this site to complete the payment.',
+	// 				confirmButtonText: 'OK'
+	// 			});
+	// 			return false;
+	// 		}
 
-		} catch (error) {
-			console.error("Payment simulation error:", error);
-			alert("Something went wrong. Try again later.");
-			return false;
-		}
-	};
+	// 	} catch (error) {
+	// 		console.error("Payment simulation error:", error);
+	// 		alert("Something went wrong. Try again later.");
+	// 		return false;
+	// 	}
+	// };
+
+    const handlePaymentSuccess = () => {
+      window.location.href = "/thank-you";
+    };
 
     return (
         <div className="untree_co-section">
@@ -299,7 +304,7 @@ const CheckoutForm = () => {
 		                  </tbody>
 		                </table>
 
-		                <div className="border p-3 mb-3">
+		                {/* <div className="border p-3 mb-3">
 		                  <h3 className="h6 mb-0"><a className="d-block" data-bs-toggle="collapse" href="#collapsebank" role="button" aria-expanded="false" aria-controls="collapsebank">ABA Pay</a></h3>
 
 		                  <div className="collapse" id="collapsebank">
@@ -307,7 +312,7 @@ const CheckoutForm = () => {
 		                      <p className="mb-0">Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order won't be shipped until the funds have cleared in our account.</p>
 		                    </div>
 		                  </div>
-		                </div>
+		                </div> */}
 
 		                {/* <div className="border p-3 mb-3">
 		                  <h3 className="h6 mb-0"><a className="d-block" data-bs-toggle="collapse" href="#collapsecheque" role="button" aria-expanded="false" aria-controls="collapsecheque">Cheque Payment</a></h3>
@@ -329,15 +334,18 @@ const CheckoutForm = () => {
 		                  </div>
 		                </div> */}
 
+						{/* <Paypal total={total} /> */}
+
 		                <div className="form-group">
-		                  <button className="btn btn-black btn-lg py-3 btn-block"
+							<Paypal total={total} onSuccess={handlePaymentSuccess} />
+		                  {/* <button className="btn btn-black btn-lg py-3 btn-block"
                           onClick={async () => {
 							const success = await handleAbaPayment();
 							if (success) {
 							  window.location.href = "/thank-you";
 							}
 						  }}
-                          >Place Order</button>
+                          >Place Order</button> */}
 		                </div>
 
 		              </div>
